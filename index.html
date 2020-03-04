@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Auto Quest</title>
+    <meta charset="utf-8">
+</head>
+
+<style>
+    #Progress_Status {
+        width: 100%;
+        background-color: #ddd;
+    }
+
+    #myprogressBar {
+        width: 0%;
+        height: 50px;
+        background-color: #4CAF50;
+    }
+
+    #acitonLabel {
+        background-color: black;
+
+    }
+
+    .column {
+        float: left;
+    }
+
+    #statsCol {
+        width: 20%;
+        background-color: darkred;
+        color: white;
+        height: 100%;
+    }
+
+    #actionCol {
+        width: 60%;
+        background-color: black;
+        color: white;
+        height: 100%;
+    }
+
+    #thingsCol {
+        width: 20%;
+        background-color: grey;
+        height: 100%;
+    }
+
+    .navButton {
+        float: left;
+        width: 25%;
+    }
+
+    .navLabel {
+        text-align: center;
+    }
+
+    #mainRow {
+        height: 80vh;
+    }
+
+    #mainRow:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    button {
+        display: block;
+    }
+</style>
+
+<body>
+    <nav>
+        <div class="row">
+            <div class="navButton" id="craft">
+                <p onclick="start('crafting')" class="navLabel">Craft!</p>
+            </div>
+
+            <div class="navButton" id="fight">
+                <p onclick="start('fighting')" class="navLabel">Fight!</p>
+            </div>
+
+            <div class="navButton" id="mine">
+                <p onclick="start('mining')" class="navLabel">Mine!</p>
+            </div>
+
+            <div class="navButton" id="stop">
+                <p onclick="go=false" class="navLabel">Stop!</p>
+            </div>
+        </div>
+
+    </nav>
+
+    <div id="Progress_Status">
+        <div id="myprogressBar"></div>
+    </div>
+
+    <div id="mainRow">
+        <div class="column" id="statsCol">
+            <p> </p>
+        </div>
+        <div class="column" id="actionCol">
+            <p id="actionLabel"></p>
+            <p id="actionTracker"></p>
+        </div>
+        <div class="column" id="thingsCol">
+            <p> </p>
+        </div>
+    </div>
+
+</body>
+
+<footer>
+    <script src="main.js"></script>>
+</footer>
+
+</html>
