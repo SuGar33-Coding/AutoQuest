@@ -6,7 +6,7 @@ routes = {
     auth: require('./auth'),
     fun: require('./fun'),
     character: require('./character')
-}
+};
 
 /* Adds the routes to the api named by their key */
 Object.keys(routes).forEach(key => {
