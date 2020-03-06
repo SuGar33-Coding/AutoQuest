@@ -1,7 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { fun } = require('../controllers');
 
-router.get('/hi', fun.hi);
+/* Add all routes to this object */
+routes = {
+    auth: require('./auth'),
+    fun: require('./fun'),
+    character: require('./character')
+}
+
+/* Adds the routes to the api named by their key */
+Object.keys(routes).forEach(key => {
+    router.use(`/${key}`, routes[key])
+});
 
 module.exports = router;
