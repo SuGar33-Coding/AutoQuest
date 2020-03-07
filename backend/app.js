@@ -4,10 +4,14 @@ const express = require('express');
 const session = require('express-session');
 const routes = require('./routes');
 
+const morgan = require('morgan');
 const cors = require('cors');
 
 /* Get Express app */
 const app = express();
+
+/* Logger */
+app.use(morgan('dev'));
 
 /* Use sessions middleware */
 app.use(session({
@@ -31,6 +35,25 @@ app.get('/', (req, res) => {
 
 /* Set api routes */
 app.use('/', routes);
+
+/* Invalid request response */
+app.use((req, res, next) => {
+    const error = new Error('Not found');
+    error.status = 404;
+    next(error);
+});
+
+/* Error handler */
+app.use((error, req, res, next) => {
+    let status = error.status || 500;
+    res.status(status);
+    res.json({
+        error: {
+            message: error.message,
+            status: status
+        }
+    })
+});
 
 /* Spin up server */
 port = process.env.PORT || 3000;
