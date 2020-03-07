@@ -27,6 +27,9 @@ app.use(session({
     }
 }));
 
+/* Add cors headers */
+app.use(cors());
+
 /* Default route */
 app.get('/', (req, res) => {
     req.session.ctr ? req.session.ctr ++ : req.session.ctr = 1;
