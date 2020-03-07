@@ -13,6 +13,8 @@ const app = express();
 /* Logger */
 app.use(morgan('dev'));
 
+//TODO: Maybe implement bodyparser for sending json data through the API
+
 /* Use sessions middleware */
 app.use(session({
     name: 'SID',
