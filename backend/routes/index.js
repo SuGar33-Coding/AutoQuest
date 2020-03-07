@@ -10,7 +10,7 @@ routes = {
 
 /* Adds the routes to the api named by their key */
 Object.keys(routes).forEach(key => {
-    router.use(`/${key}`, routes[key])
+    router.use(`/${key}`, routes[key]);
 });
 
 module.exports = router;

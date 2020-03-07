@@ -33,8 +33,8 @@ app.get('/', (req, res) => {
 app.use('/', routes);
 
 /* Spin up server */
-port = process.env.PORT || 3000
+port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log(`http://localhost:${port}`)
-})
+    console.log(`http://localhost:${port}`);
+});
