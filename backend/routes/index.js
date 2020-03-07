@@ -5,7 +5,8 @@ const router = express.Router();
 routes = {
     auth: require('./auth'),
     fun: require('./fun'),
-    character: require('./character')
+    character: require('./character'),
+    game: require('./game')
 };
 
 /* Adds the routes to the api named by their key */

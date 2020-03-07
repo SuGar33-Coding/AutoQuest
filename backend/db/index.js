@@ -1,7 +1,10 @@
+/* Fake database hit for yours truly */
 const getGabe = async () => {
     return {
-        user: 'gabe',
-        level: 1
+        name: 'gabe',
+        level: 1,
+        totalActions: 69,
+        actionTime: 3
     };
 };
 
