@@ -11,7 +11,7 @@ const cors = require('cors');
 const app = express();
 
 /* Logger */
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 
 //TODO: Maybe implement bodyparser for sending json data through the API
 
@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
     req.session.ctr ? req.session.ctr ++ : req.session.ctr = 1;
     
     res.send(`How did you get here? Shoo!
-    How many times you have gone to this URL: ${req.session.ctr}`);
+    Your permanent level penalty: ${req.session.ctr*-1}`);
 });
 
 /* Set api routes */
