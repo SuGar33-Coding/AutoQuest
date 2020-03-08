@@ -1,0 +1,11 @@
+{
+  "name": "autoquestchat",
+  "version": "0.0.1",
+  "description": "Chat server for Auto Quest",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
