@@ -1,11 +1,11 @@
-const config = require('config');
+import config from 'config';
 
-const express = require('express');
-const session = require('express-session');
+import express from 'express';
+import session from 'express-session';
 const routes = require('./routes');
 
-const morgan = require('morgan');
-const cors = require('cors');
+import morgan from 'morgan';
+import cors from 'cors';
 
 /* Get Express app */
 const app = express();
@@ -32,10 +32,10 @@ app.use(cors());
 
 /* Default route */
 app.get('/', (req, res) => {
-    req.session.ctr ? req.session.ctr ++ : req.session.ctr = 1;
+    req.session!.ctr ? req.session!.ctr ++ : req.session!.ctr = 1;
     
     res.send(`How did you get here? Shoo!
-    Your permanent level penalty: ${req.session.ctr*-1}`);
+    Your permanent level penalty: ${req.session!.ctr*-1}`);
 });
 
 /* Set api routes */
@@ -44,14 +44,14 @@ app.use('/', routes);
 /* Invalid request response */
 app.use((req, res, next) => {
     const error = new Error('Not found');
-    error.status = 404;
+    // error.status = 404;
     next(error);
 });
 
 /* Error handler */
-app.use((error, req, res, next) => {
-    let status = error.status || 500;
-    res.status(status);
+app.use((error: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    // let status = error.status || 500;
+    // res.status(status);
     res.json({
         error: {
             message: error.message,
@@ -61,7 +61,7 @@ app.use((error, req, res, next) => {
 });
 
 /* Spin up server */
-port = process.env.PORT || 3000;
+let port = process.env.PORT || 3000;
 
 app.listen(port, () => {
     console.log(`http://localhost:${port}`);

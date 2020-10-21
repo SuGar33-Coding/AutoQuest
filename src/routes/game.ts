@@ -1,16 +1,16 @@
-const express = require('express');
-const router = express.Router();
+import {Router} from 'express';
+const router = Router();
 
-const moment = require('moment');
+import moment from 'moment';
 const logFormat = 'MMM D, YYYY HH:mm:ss';
 
 router.post('/action', (req, res, next) => {
-    if (!req.session.user) {
+    if (!req.session!.user) {
         let error = new Error('No user logged in');
-        error.status = 404;
+        // error.status = 404;
         next(error);
     } else {
-        let user = req.session.user;
+        let user = req.session!.user;
 
         // if the last action time hasn't been logged, set it so that the user can perform an action
         // TODO: potential exploit where the user repeatedly clears cookies faster than the progress timer
@@ -21,7 +21,7 @@ router.post('/action', (req, res, next) => {
         if (moment().diff(user.lastActionTime, 'second') < user.actionTime) {
             console.log(`${moment().format(logFormat)}: User "${user.name}" is performing actions too fast... might be cheating :O`);
             let error = new Error('Too many action requests');
-            error.status = 429;
+            // error.status = 429;
             next(error);
         } else {
             user.totalActions ++;
