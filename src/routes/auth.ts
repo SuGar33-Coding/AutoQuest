@@ -12,7 +12,7 @@ router.get("/loginGabe", async (req, res, next) => {
     next(error);
   } else {
     /* Set user in current session */
-    req!.session!.user = user;
+    req.session!.user = user;
     res.send(user);
   }
 });

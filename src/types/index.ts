@@ -1,3 +1,5 @@
+import { Request, Express } from "express"
+
 export class HttpError extends Error {
     status: number;
 
