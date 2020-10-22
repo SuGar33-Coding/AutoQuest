@@ -1,4 +1,6 @@
 import {Router} from 'express';
+import { HttpError } from "../types/index";
+
 const router = Router();
 
 import moment from 'moment';
@@ -6,8 +8,7 @@ const logFormat = 'MMM D, YYYY HH:mm:ss';
 
 router.post('/action', (req, res, next) => {
     if (!req.session!.user) {
-        let error = new Error('No user logged in');
-        // error.status = 404;
+        let error = new HttpError(404, "No user logged in");
         next(error);
     } else {
         let user = req.session!.user;

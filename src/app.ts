@@ -6,6 +6,7 @@ const routes = require('./routes');
 
 import morgan from 'morgan';
 import cors from 'cors';
+import { HttpError } from './types';
 
 /* Get Express app */
 const app = express();
@@ -49,9 +50,9 @@ app.use((req, res, next) => {
 });
 
 /* Error handler */
-app.use((error: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    // let status = error.status || 500;
-    // res.status(status);
+app.use((error: HttpError, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    let status = error.status || 500;
+    res.status(status);
     res.json({
         error: {
             message: error.message,
