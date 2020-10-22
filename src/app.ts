@@ -1,6 +1,6 @@
 import config from "config";
 
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import session from "express-session";
 import routes from "./routes/index";
 
@@ -45,23 +45,22 @@ app.get("/", (req, res) => {
 app.use("/", routes);
 
 /* Invalid request response */
-// app.use((req, res, next) => {
-//     const error = new HttpError(404, "Not found");
-//     res.locals.error = error;
-//     next(error);
-// });
+app.use((req, res, next) => {
+    const error = new HttpError(404, "Not found");
+    next(error);
+});
 
 /* Error handler */
-// app.use((req, res) => {
-//     let error = res.locals.error;
-//     let status = error.status || 500;
-//     res.status(status).send({
-//         error: {
-//             message: error.message,
-//             status: status,
-//         },
-//     });
-// });
+app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
+    // let error = res.locals.error;
+    let status = error.status || 500;
+    res.status(status).send({
+        error: {
+            message: error.message,
+            status: status,
+        },
+    });
+});
 
 /* Spin up server */
 let port = process.env.PORT || 3000;
