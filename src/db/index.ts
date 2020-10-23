@@ -2,15 +2,16 @@ type error = {
     message: string
 }
 
-
-/* Fake database hit for yours truly */
-export const getGabe: () => Promise<{
+type Gabe = () => Promise<{
     name: string,
     level: number,
     totalActions: number,
     actionTime: number,
     error?: error
-}> = async () => {
+}>
+
+/* Fake database hit for yours truly */
+export const getGabe: Gabe = async () => {
     return {
         name: 'gabe',
         level: 1,

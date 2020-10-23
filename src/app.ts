@@ -1,6 +1,8 @@
 import config from "config";
+require("dotenv").config();
 
 import express, { NextFunction, Request, Response } from "express";
+import mongoose from "mongoose";
 import session from "express-session";
 import routes from "./routes/index";
 
@@ -15,6 +17,16 @@ const app = express();
 //app.use(morgan('dev'));
 
 //TODO: Maybe implement bodyparser for sending json data through the API
+
+/* Set up DB middleware */
+const dbName = "auto-quest";
+mongoose.connect(
+    `mongodb+srv://the-mayor:${process.env.MONGO_PASSWORD}@tamanotchidb.6mz7m.gcp.mongodb.net/${dbName}?retryWrites=true&w=majority`,
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }
+);
 
 /* Use sessions middleware */
 app.use(
