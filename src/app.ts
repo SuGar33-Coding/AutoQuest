@@ -2,6 +2,7 @@ import config from "config";
 require("dotenv").config();
 
 import express, { NextFunction, Request, Response } from "express";
+import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import session from "express-session";
 import routes from "./routes/index";
@@ -44,6 +45,9 @@ app.use(
 
 /* Add cors headers */
 app.use(cors());
+
+/* Body parser */
+app.use(bodyParser.json());
 
 /* Default route */
 app.get("/", (req, res) => {

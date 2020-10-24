@@ -1,16 +1,13 @@
 import { Router } from 'express';
-import bodyParser from "body-parser";
 import { createPog } from '../db/pog';
 import { PoggerType } from '../models/Poggers';
 const router = Router();
-
-const jsonParser = bodyParser.json();
 
 router.get('/hi', (req, res, next) => {
     res.send('hello');
 });
 
-router.post('/pog', jsonParser, async (req, res, next) => {
+router.post('/pog', async (req, res, next) => {
     console.log(req.body);
 
     let data: PoggerType = {
