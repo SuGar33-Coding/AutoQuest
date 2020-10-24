@@ -4,6 +4,8 @@ require("dotenv").config();
 import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import swaggerUI from "swagger-ui-express";
+import swaggerDoc from "./openapi";
 import session from "express-session";
 import routes from "./routes/index";
 
@@ -53,9 +55,12 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
     req.session!.ctr ? req.session!.ctr++ : (req.session!.ctr = 1);
 
-    res.send(`How did you get here? Shoo!
+    res.send(`Why are you here? Shoo!
     Your permanent level penalty: ${req.session!.ctr * -1}`);
 });
+
+/* Set SwaggerUI route */
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc))
 
 /* Set api routes */
 app.use("/", routes);

@@ -8,12 +8,12 @@ router.get('/hi', (req, res, next) => {
 });
 
 router.post('/pog', async (req, res, next) => {
-    console.log(req.body);
+    console.log(req.query);
 
     let data: PoggerType = {
-        pogVal: req.body.pogVal,
-        pogName: req.body.pogName,
-        pogSecret: req.body.pogSecret
+        pogVal: parseInt(req.query.pogVal as string),
+        pogName: req.query.pogName as string,
+        pogSecret: req.params.pogSecret
     };
 
     const pogument = await createPog(data);
