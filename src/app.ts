@@ -3,9 +3,12 @@ require("dotenv").config();
 
 import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
+import {OpenApiValidator} from 'express-openapi-validate';
+import {Doc} from "./openapi";
+const validator = new OpenApiValidator(Doc);
+
 import mongoose from "mongoose";
 import swaggerUI from "swagger-ui-express";
-import swaggerDoc from "./openapi";
 import session from "express-session";
 import routes from "./routes/index";
 
@@ -51,6 +54,13 @@ app.use(cors());
 /* Body parser */
 app.use(bodyParser.json());
 
+/* Set up OpenAPI validator */
+// app.use(OpenApiValidator.middleware({
+//     apiSpec: "../openapi.json",
+//     validateRequests: true
+// }))
+app.use(validator.match());
+
 /* Default route */
 app.get("/", (req, res) => {
     req.session!.ctr ? req.session!.ctr++ : (req.session!.ctr = 1);
@@ -60,7 +70,7 @@ app.get("/", (req, res) => {
 });
 
 /* Set SwaggerUI route */
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc))
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(Doc))
 
 /* Set api routes */
 app.use("/", routes);

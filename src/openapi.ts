@@ -1,4 +1,6 @@
-export default {
+import { OpenApiDocument } from "express-openapi-validate"
+
+export const Doc: OpenApiDocument = {
     openapi: "3.0.2",
     info: {
         title: "AutoQuest API",

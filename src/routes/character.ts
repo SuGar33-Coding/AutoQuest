@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import { HttpError } from "../types/index";
 
 const router = Router();
