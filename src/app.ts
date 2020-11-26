@@ -24,10 +24,9 @@ app.use(morgan("dev"));
 //TODO: Maybe implement bodyparser for sending json data through the API
 
 /* Set up DB middleware */
-const dbName = "auto-quest";
 mongoose
     .connect(
-        `mongodb+srv://the-mayor:${process.env.MONGO_PASSWORD}@tamanotchidb.6mz7m.gcp.mongodb.net/${dbName}?retryWrites=true&w=majority`,
+        process.env.MONGO_URI!,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,

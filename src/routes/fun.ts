@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createPog } from "../db/pog";
+import * as Pog from "../db/pog";
 import { PoggerType } from "../models/Poggers";
 const router = Router();
 
@@ -16,7 +16,7 @@ router.post("/pog", async (req, res) => {
         pogSecret: req.params.pogSecret,
     };
 
-    // const pogument = await createPog(data);
+    const pogument = await Pog.create(data);
     // res.send(pogument);
     res.send("nice");
 });
