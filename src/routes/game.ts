@@ -7,11 +7,10 @@ import moment from "moment";
 const logFormat = "MMM D, YYYY HH:mm:ss";
 
 router.post("/action", (req, res, next) => {
-    if (!req.session!.user) {
+    if (!req.session || !req.session.user) {
         throw new HttpError(404, "No user logged in");
-        // next(error);
     } else {
-        const user = req.session!.user;
+        const user = req.session.user;
 
         // if the last action time hasn't been logged, set it so that the user can perform an action
         // TODO: potential exploit where the user repeatedly clears cookies faster than the progress timer
