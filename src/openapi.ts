@@ -1,14 +1,12 @@
-import { OpenApiDocument } from "express-openapi-validate"
+import { OpenApiDocument } from "express-openapi-validate";
 
 export const Doc: OpenApiDocument = {
     openapi: "3.0.2",
     info: {
         title: "AutoQuest API",
-        version: "1.0"
+        version: "1.0",
     },
-    servers: [
-        { url: "http://localhost:3000/" }
-    ],
+    servers: [{ url: "http://localhost:3000/" }],
     paths: {
         "/fun/pog": {
             post: {
@@ -18,35 +16,35 @@ export const Doc: OpenApiDocument = {
                         in: "query",
                         required: true,
                         schema: {
-                            type: "integer"
-                        }
+                            type: "integer",
+                        },
                     },
                     {
                         name: "pogName",
                         in: "query",
                         required: true,
                         schema: {
-                            type: "string"
-                        }
+                            type: "string",
+                        },
                     },
                     {
                         name: "pogSecret",
                         in: "query",
                         required: false,
                         schema: {
-                            type: "string"
-                        }
+                            type: "string",
+                        },
                     },
                 ],
                 responses: {
                     200: {
-                        description: "Nice"
+                        description: "Nice",
                     },
                     404: {
-                        description: "Not found"
-                    }
-                }
-            }
-        }
-    }
-}
+                        description: "Not found",
+                    },
+                },
+            },
+        },
+    },
+};

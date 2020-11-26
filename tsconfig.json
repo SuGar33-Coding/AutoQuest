@@ -6,10 +6,7 @@
         "outDir": "./build",
         "esModuleInterop": true,
         "strict": true,
-        "typeRoots": [
-            "src/types/index.ts",
-            "node_modules/@types"
-        ],
+        "typeRoots": ["src/types/index.ts", "node_modules/@types"],
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
     }

@@ -1,10 +1,10 @@
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
 dotenv.config();
 
 import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
-import {OpenApiValidator} from 'express-openapi-validate';
-import {Doc} from "./openapi";
+import { OpenApiValidator } from "express-openapi-validate";
+import { Doc } from "./openapi";
 const validator = new OpenApiValidator(Doc);
 
 import mongoose from "mongoose";
@@ -20,7 +20,7 @@ import { HttpError } from "./types";
 const app = express();
 
 /* Logger */
-//app.use(morgan('dev'));
+app.use(morgan("dev"));
 
 //TODO: Maybe implement bodyparser for sending json data through the API
 
@@ -30,7 +30,7 @@ mongoose.connect(
     `mongodb+srv://the-mayor:${process.env.MONGO_PASSWORD}@tamanotchidb.6mz7m.gcp.mongodb.net/${dbName}?retryWrites=true&w=majority`,
     {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
     }
 );
 
@@ -63,14 +63,17 @@ app.use(validator.match());
 
 /* Default route */
 app.get("/", (req, res) => {
-    req.session!.ctr ? req.session!.ctr++ : (req.session!.ctr = 1);
+    if (req.session) {
+        // TODO: Make all session checks like this. It probably makes sense to do something if there is no session.
+        req.session.ctr ? req.session.ctr++ : (req.session.ctr = 1);
+    }
 
     res.send(`Why are you here? Shoo!
     Your permanent level penalty: ${req.session!.ctr * -1}`);
 });
 
 /* Set SwaggerUI route */
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(Doc))
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(Doc));
 
 /* Set api routes */
 app.use("/", routes);
@@ -82,9 +85,9 @@ app.use((req, res, next) => {
 });
 
 /* Error handler */
-app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
+app.use((error: HttpError, req: Request, res: Response) => {
     // let error = res.locals.error;
-    let status = error.status || 500;
+    const status = error.status || 500;
     res.status(status).send({
         error: {
             message: error.message,
@@ -94,7 +97,7 @@ app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
 });
 
 /* Spin up server */
-let port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
     console.log(`http://localhost:${port}`);

@@ -1,12 +1,10 @@
 {
-    "openapi":"3.0.2",
+    "openapi": "3.0.2",
     "info": {
-        "title":"AutoQuest API",
-        "version":"1.0"
+        "title": "AutoQuest API",
+        "version": "1.0"
     },
-    "servers": [
-        {"url":"http://localhost:3000/"}
-    ],
+    "servers": [{ "url": "http://localhost:3000/" }],
     "paths": {
         "/fun/pog": {
             "post": {

@@ -1,4 +1,3 @@
-
 var reset = false;
 var actionid;
 var go = false;
@@ -17,7 +16,7 @@ function update() {
     var identity = setInterval(scene, 10);
     function scene() {
         if (go) {
-            label.innerHTML = actionid + "..."
+            label.innerHTML = actionid + "...";
             if (reset) {
                 reset = false;
                 width = 0;
@@ -26,15 +25,21 @@ function update() {
             if (width >= 100) {
                 width = 0;
                 actions++;
-                tracker.innerHTML = player.name + " has been " + actionid + " for " + actions + " actions!";
+                tracker.innerHTML =
+                    player.name +
+                    " has been " +
+                    actionid +
+                    " for " +
+                    actions +
+                    " actions!";
             } else {
                 width++;
-                element.style.width = width + '%';
+                element.style.width = width + "%";
             }
         } else {
             //clearInterval();
             tracker.innerHTML = "";
-            label.innerHTML = "stopped."
+            label.innerHTML = "stopped.";
         }
     }
 }
@@ -42,8 +47,7 @@ function update() {
 function start(actionName) {
     reset = true;
     actionid = actionName;
-    if(go){
-
+    if (go) {
     } else {
         go = true;
         //update();
@@ -51,4 +55,3 @@ function start(actionName) {
 }
 
 update();
-

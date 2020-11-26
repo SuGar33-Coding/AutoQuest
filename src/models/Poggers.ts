@@ -11,8 +11,8 @@ interface IPoggers extends mongoose.Document, PoggerType {}
 
 export const PoggersSchema = new mongoose.Schema({
     pogVal: { type: Number, required: true },
-    pogName: { type: String, required: true},
-    pogSecret: { type: String }
-})
+    pogName: { type: String, required: true },
+    pogSecret: { type: String },
+});
 
 export const Poggers = mongoose.model<IPoggers>("Poggers", PoggersSchema);
