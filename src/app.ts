@@ -1,5 +1,5 @@
-import config from "config";
-require("dotenv").config();
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
