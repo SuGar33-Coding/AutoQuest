@@ -1,6 +1,6 @@
-import { OpenApiDocument } from "express-openapi-validate";
+import { OpenAPIV3 } from "express-openapi-validator/dist/framework/types";
 
-export const Doc: OpenApiDocument = {
+export const Doc: OpenAPIV3.Document = {
     openapi: "3.0.2",
     info: {
         title: "AutoQuest API",
@@ -16,7 +16,7 @@ export const Doc: OpenApiDocument = {
                         in: "query",
                         required: true,
                         schema: {
-                            type: "integer",
+                           type: "number"
                         },
                     },
                     {

@@ -3,9 +3,8 @@ dotenv.config();
 
 import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
-import { OpenApiValidator } from "express-openapi-validate";
+import * as OpenApiValidator from "express-openapi-validator"
 import { Doc } from "./openapi";
-const validator = new OpenApiValidator(Doc);
 
 import mongoose from "mongoose";
 import swaggerUI from "swagger-ui-express";
@@ -26,13 +25,18 @@ app.use(morgan("dev"));
 
 /* Set up DB middleware */
 const dbName = "auto-quest";
-mongoose.connect(
-    `mongodb+srv://the-mayor:${process.env.MONGO_PASSWORD}@tamanotchidb.6mz7m.gcp.mongodb.net/${dbName}?retryWrites=true&w=majority`,
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    }
-);
+mongoose
+    .connect(
+        `mongodb+srv://the-mayor:${process.env.MONGO_PASSWORD}@tamanotchidb.6mz7m.gcp.mongodb.net/${dbName}?retryWrites=true&w=majority`,
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        }
+    )
+    .then(() => {
+        console.log("Connected to MongoDB");
+    })
+    .catch(console.log);
 
 /* Use sessions middleware */
 app.use(
@@ -43,7 +47,7 @@ app.use(
         saveUninitialized: false,
         cookie: {
             sameSite: true,
-            secure: false, // TODO: set to true for production
+            secure: "auto", // TODO: set to true for production?
         },
     })
 );
@@ -55,11 +59,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 /* Set up OpenAPI validator */
-// app.use(OpenApiValidator.middleware({
-//     apiSpec: "../openapi.json",
-//     validateRequests: true
-// }))
-app.use(validator.match());
+app.use(OpenApiValidator.middleware({
+    apiSpec: Doc,
+    validateRequests: true
+}))
 
 /* Default route */
 app.get("/", (req, res) => {
@@ -84,9 +87,10 @@ app.use((req, res, next) => {
     next(error);
 });
 
-/* Error handler */
-app.use((error: HttpError, req: Request, res: Response) => {
-    // let error = res.locals.error;
+/* Error handler (requires next arg for Express to recognize it as the end chain) */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
+    console.error(error.stack);
     const status = error.status || 500;
     res.status(status).send({
         error: {

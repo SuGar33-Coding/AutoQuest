@@ -3,11 +3,11 @@ import { createPog } from "../db/pog";
 import { PoggerType } from "../models/Poggers";
 const router = Router();
 
-router.get("/hi", (req, res, next) => {
+router.get("/hi", (req, res) => {
     res.send("hello");
 });
 
-router.post("/pog", async (req, res, next) => {
+router.post("/pog", async (req, res) => {
     console.log(req.query);
 
     const data: PoggerType = {
