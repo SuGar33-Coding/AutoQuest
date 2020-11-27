@@ -44,18 +44,18 @@ mongoose
     .catch(console.log);
 
 /* Use sessions middleware */
-// app.use(
-//     session({
-//         name: "SID",
-//         secret: `I'm wearing three pairs of underwear right now`,
-//         resave: false,
-//         saveUninitialized: false,
-//         cookie: {
-//             sameSite: true,
-//             secure: "auto", // TODO: set to true for production?
-//         },
-//     })
-// );
+app.use(
+    session({
+        name: "SID",
+        secret: `I'm wearing three pairs of underwear right now`,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            sameSite: true,
+            secure: "auto", // TODO: set to true for production?
+        },
+    })
+);
 
 /* Add cors headers */
 app.use(cors());
@@ -64,12 +64,12 @@ app.use(cors());
 app.use(bodyParser.json());
 
 /* Set up OpenAPI validator */
-app.use(
-    OpenApiValidator.middleware({
-        apiSpec: Doc,
-        validateRequests: true,
-    })
-);
+// app.use(
+//     OpenApiValidator.middleware({
+//         apiSpec: Doc,
+//         validateRequests: true,
+//     })
+// );
 
 /* Default route */
 app.get("/", (req, res) => {

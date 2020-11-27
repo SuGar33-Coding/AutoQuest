@@ -23,11 +23,15 @@ router.get("/loginGabe", async (req, res, next) => {
  */
 router.post("/signup", async (req, res, next) => {
     const data: UserType = {
-        userName: req.query.pogName as string,
+        userName: req.query.userName as string,
     };
 
-    const newUser = await User.create(data);
-    res.status(200).send(newUser);
+    try {
+        const newUser = await User.create(data);
+        res.status(200).send(newUser);
+    } catch (error) {
+        next(error);
+    }
 });
 
 module.exports = router;
