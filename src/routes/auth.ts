@@ -24,6 +24,8 @@ import { User, UserType } from "../models/User";
 router.post("/signup", async (req, res, next) => {
     const data: UserType = {
         userName: req.query.userName as string,
+        level: 10,
+        numActions: 100
     };
 
     try {

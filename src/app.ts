@@ -15,16 +15,7 @@ import routes from "./routes/index";
 import morgan from "morgan";
 import cors from "cors";
 import { HttpError } from "./types";
-
-/**
- *
- * @param username The user-specific data to use in generating the token
- */
-function generateAccessToken(username: string) {
-    return jwt.sign(username, process.env.TOKEN_SECRET!, {
-        expiresIn: "1800s",
-    });
-}
+import { User } from "./models/User";
 
 /* Get Express app */
 const app = express();
@@ -74,6 +65,9 @@ app.use(bodyParser.json());
 //     })
 // );
 
+/* Set SwaggerUI route */
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(Doc));
+
 /* Default route */
 app.get("/", (req, res) => {
     if (req.session) {
@@ -84,9 +78,6 @@ app.get("/", (req, res) => {
     res.send(`Why are you here? Shoo!
     Your permanent level penalty: ${req.session!.ctr * -1}`);
 });
-
-/* Set SwaggerUI route */
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(Doc));
 
 /* Set api routes */
 app.use("/", routes);

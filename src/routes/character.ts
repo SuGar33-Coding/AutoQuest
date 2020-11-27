@@ -1,15 +1,16 @@
 import { Router } from "express";
+import { authenticateWithToken } from "../middleware/jwt";
+import { User } from "../models/User";
 import { HttpError } from "../types/index";
 
 const router = Router();
 
-router.get("/level", (req, res, next) => {
-    if (req.session!.user) {
-        res.status(200).send(`${req.session!.user.level}`);
-    } else {
-        const error = new HttpError(404, "No user logged in");
-        next(error);
-    }
+router.use(authenticateWithToken);
+
+router.get("/level", async (req, res, next) => {
+    res.status(200).send({
+        level: req.user.level,
+    });
 });
 
 router.get("/totalActions", (req, res, next) => {
