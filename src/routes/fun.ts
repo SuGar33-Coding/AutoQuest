@@ -1,6 +1,5 @@
 import { Router } from "express";
-import * as Pog from "../db/pog";
-import { PoggerType } from "../models/Poggers";
+import { PoggerType, Poggers } from "../models/Poggers";
 const router = Router();
 
 router.get("/hi", (req, res) => {
@@ -17,7 +16,7 @@ router.post("/pog", async (req, res, next) => {
     };
 
     try {
-        const pogument = await Pog.create(data);
+        const pogument = await Poggers.create(data);
         res.send(pogument);
     } catch (error) {
         next(error);
