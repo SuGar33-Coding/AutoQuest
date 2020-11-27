@@ -16,7 +16,7 @@ router.get("/level", async (req, res, next) => {
 router.get("/num-actions", (req, res, next) => {
     res.status(200).send({
         numActions: req.user.numActions,
-    })
+    });
 });
 
 module.exports = router;
