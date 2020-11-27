@@ -25,7 +25,7 @@ router.post("/signup", async (req, res, next) => {
     const data: UserType = {
         userName: req.query.userName as string,
         level: 10,
-        numActions: 100
+        numActions: 100,
     };
 
     try {
