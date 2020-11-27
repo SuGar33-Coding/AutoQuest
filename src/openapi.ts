@@ -130,7 +130,8 @@ export const Doc: OpenAPIV3.Document = {
                         description: "Nice",
                     },
                     400: {
-                        description: "There was an error, actions not retrieved",
+                        description:
+                            "There was an error, actions not retrieved",
                     },
                     404: {
                         description: "Not found",
