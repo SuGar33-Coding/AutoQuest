@@ -17,8 +17,8 @@ router.post("/pog", async (req, res) => {
     };
 
     const pogument = await Pog.create(data);
-    // res.send(pogument);
-    res.send("nice");
+    res.send(pogument);
+    // res.send("nice");
 });
 
 module.exports = router;

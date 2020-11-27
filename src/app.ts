@@ -1,9 +1,10 @@
 import * as dotenv from "dotenv";
 dotenv.config();
+import * as jwt from "jsonwebtoken";
 
 import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
-import * as OpenApiValidator from "express-openapi-validator"
+import * as OpenApiValidator from "express-openapi-validator";
 import { Doc } from "./openapi";
 
 import mongoose from "mongoose";
@@ -15,6 +16,14 @@ import morgan from "morgan";
 import cors from "cors";
 import { HttpError } from "./types";
 
+/**
+ * 
+ * @param username The user-specific data to use in generating the token
+ */
+function generateAccessToken(username: string) {
+    return jwt.sign(username, process.env.TOKEN_SECRET!, { expiresIn: "1800s" });
+}
+
 /* Get Express app */
 const app = express();
 
@@ -25,31 +34,28 @@ app.use(morgan("dev"));
 
 /* Set up DB middleware */
 mongoose
-    .connect(
-        process.env.MONGO_URI!,
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        }
-    )
+    .connect(process.env.MONGO_URI!, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
     .then(() => {
         console.log("Connected to MongoDB");
     })
     .catch(console.log);
 
 /* Use sessions middleware */
-app.use(
-    session({
-        name: "SID",
-        secret: `I'm wearing three pairs of underwear right now`,
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            sameSite: true,
-            secure: "auto", // TODO: set to true for production?
-        },
-    })
-);
+// app.use(
+//     session({
+//         name: "SID",
+//         secret: `I'm wearing three pairs of underwear right now`,
+//         resave: false,
+//         saveUninitialized: false,
+//         cookie: {
+//             sameSite: true,
+//             secure: "auto", // TODO: set to true for production?
+//         },
+//     })
+// );
 
 /* Add cors headers */
 app.use(cors());
@@ -58,10 +64,12 @@ app.use(cors());
 app.use(bodyParser.json());
 
 /* Set up OpenAPI validator */
-app.use(OpenApiValidator.middleware({
-    apiSpec: Doc,
-    validateRequests: true
-}))
+app.use(
+    OpenApiValidator.middleware({
+        apiSpec: Doc,
+        validateRequests: true,
+    })
+);
 
 /* Default route */
 app.get("/", (req, res) => {

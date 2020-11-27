@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { Poggers, PoggerType } from "../models/Poggers";
 
 export async function create(data: PoggerType) {

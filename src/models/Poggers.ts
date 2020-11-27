@@ -1,4 +1,3 @@
-// import { getModelForClass, prop } from "@typegoose/typegoose";
 import * as mongoose from "mongoose";
 
 export interface PoggerType {
