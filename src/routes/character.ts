@@ -13,14 +13,10 @@ router.get("/level", async (req, res, next) => {
     });
 });
 
-router.get("/totalActions", (req, res, next) => {
-    if (req.session!.user) {
-        res.status(200).send(`${req.session!.user.totalActions}`);
-    } else {
-        const error = new Error("No user logged in");
-        // error.status = 404;
-        next(error);
-    }
+router.get("/num-actions", (req, res, next) => {
+    res.status(200).send({
+        numActions: req.user.numActions,
+    })
 });
 
 module.exports = router;

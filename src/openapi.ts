@@ -122,5 +122,26 @@ export const Doc: OpenAPIV3.Document = {
                 ],
             },
         },
+        "/character/num-actions": {
+            get: {
+                tags: ["character"],
+                responses: {
+                    200: {
+                        description: "Nice",
+                    },
+                    400: {
+                        description: "There was an error, actions not retrieved",
+                    },
+                    404: {
+                        description: "Not found",
+                    },
+                },
+                security: [
+                    {
+                        jwtAuth: [],
+                    },
+                ],
+            },
+        },
     },
 };
