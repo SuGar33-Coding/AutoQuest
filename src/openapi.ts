@@ -16,7 +16,7 @@ export const Doc: OpenAPIV3.Document = {
                         in: "query",
                         required: true,
                         schema: {
-                           type: "number"
+                            type: "number",
                         },
                     },
                     {
@@ -43,8 +43,8 @@ export const Doc: OpenAPIV3.Document = {
                     404: {
                         description: "Not found",
                     },
-                }
-            }
+                },
+            },
         },
         "/auth/signup": {
             post: {
@@ -54,7 +54,7 @@ export const Doc: OpenAPIV3.Document = {
                         in: "query",
                         required: true,
                         schema: {
-                           type: "string"
+                            type: "string",
                         },
                     },
                 ],
@@ -63,13 +63,14 @@ export const Doc: OpenAPIV3.Document = {
                         description: "Nice",
                     },
                     400: {
-                        description: "There was an error, the user was not created"
+                        description:
+                            "There was an error, the user was not created",
                     },
                     404: {
                         description: "Not found",
                     },
-                }
-            }
-        }
+                },
+            },
+        },
     },
 };

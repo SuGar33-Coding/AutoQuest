@@ -17,11 +17,13 @@ import cors from "cors";
 import { HttpError } from "./types";
 
 /**
- * 
+ *
  * @param username The user-specific data to use in generating the token
  */
 function generateAccessToken(username: string) {
-    return jwt.sign(username, process.env.TOKEN_SECRET!, { expiresIn: "1800s" });
+    return jwt.sign(username, process.env.TOKEN_SECRET!, {
+        expiresIn: "1800s",
+    });
 }
 
 /* Get Express app */
