@@ -7,7 +7,7 @@ router.get("/hi", (req, res) => {
     res.send("hello");
 });
 
-router.post("/pog", async (req, res) => {
+router.post("/pog", async (req, res, next) => {
     console.log(req.query);
 
     const data: PoggerType = {
@@ -16,9 +16,12 @@ router.post("/pog", async (req, res) => {
         pogSecret: req.params.pogSecret,
     };
 
-    const pogument = await Pog.create(data);
-    res.send(pogument);
-    // res.send("nice");
+    try {
+        const pogument = await Pog.create(data);
+        res.send(pogument);
+    } catch (error) {
+        next(error);
+    }
 });
 
 module.exports = router;
