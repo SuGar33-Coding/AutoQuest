@@ -1,5 +1,9 @@
 import { OpenAPIV3 } from "express-openapi-validator/dist/framework/types";
 
+const jwtAuthThing: OpenAPIV3.SecurityRequirementObject = {
+    jwtAuth: [],
+};
+
 export const Doc: OpenAPIV3.Document = {
     openapi: "3.0.2",
     info: {
@@ -7,9 +11,33 @@ export const Doc: OpenAPIV3.Document = {
         version: "1.0",
     },
     servers: [{ url: "http://localhost:3000/" }],
+    components: {
+        securitySchemes: {
+            jwtAuth: {
+                type: "http",
+                scheme: "bearer",
+                bearerFormat: "JWT",
+            },
+        },
+    },
+    tags: [
+        {
+            name: "auth",
+            description: "Actions involving users and authentication",
+        },
+        {
+            name: "character",
+            description: "Get and update stats on a specific Character",
+        },
+        {
+            name: "fun",
+            description: "Testing probably",
+        },
+    ],
     paths: {
         "/fun/pog": {
             post: {
+                tags: ["fun"],
                 parameters: [
                     {
                         name: "pogVal",
@@ -48,6 +76,7 @@ export const Doc: OpenAPIV3.Document = {
         },
         "/auth/signup": {
             post: {
+                tags: ["auth"],
                 parameters: [
                     {
                         name: "userName",
@@ -70,6 +99,27 @@ export const Doc: OpenAPIV3.Document = {
                         description: "Not found",
                     },
                 },
+            },
+        },
+        "/character/level": {
+            get: {
+                tags: ["character"],
+                responses: {
+                    200: {
+                        description: "Nice",
+                    },
+                    400: {
+                        description: "There was an error, level not retrieved",
+                    },
+                    404: {
+                        description: "Not found",
+                    },
+                },
+                security: [
+                    {
+                        jwtAuth: [],
+                    },
+                ],
             },
         },
     },
